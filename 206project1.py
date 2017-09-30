@@ -44,8 +44,17 @@ def classSizes(data):
 # ClassName and Class size, e.g
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
-	#Your code here:
-	pass
+	class_size= {}
+	for student in data:
+		if student["Class"] not in class_size:
+			class_size[student["Class"]]= 1
+		else:
+			class_size[student["Class"]] +=1
+
+	class_size_list=class_size.items()
+	class_size_list=sorted(class_size_list, key=lambda x:x[1], reverse=True)
+	return class_size_list
+
 
 
 
@@ -55,9 +64,18 @@ def findDay(a):
 # Output: Return the day of month (1-31) that is the
 # most often seen in the DOB
 
-	#Your code here:
-	pass
-
+	birthdays={}
+	dates_lst=[]
+	for student in a:
+		dates_lst.append(student["DOB"].split("/"))
+	for date in dates_lst:
+		if date[1] not in birthdays:
+			birthdays[date[1]]=1
+		else:
+			birthdays[date[1]]+= 1
+	dates_lst_tuples=birthdays.items()
+	dates_lst_tuples=sorted(dates_lst_tuples, key=lambda x:x[1], reverse=True)
+	return int(dates_lst_tuples[0][0])
 
 # Find the average age (rounded) of the Students
 def findAge(a):
@@ -66,7 +84,16 @@ def findAge(a):
 # most often seen in the DOB
 
 	#Your code here:
-	pass
+	x=2017
+	lst_of_ages=[]
+	for dct in a:
+		date=dct['DOB']
+		sep=date.split('/')
+		year=sep[2]
+		age=x-int(year)
+		lst_of_ages.append(age)
+		average=sum(lst_of_ages)/len(lst_of_ages)
+		return int(average)
 
 #Similar to mySort, but instead of returning single
 #Student, all of the sorted data is saved to a csv file.
