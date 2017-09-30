@@ -108,7 +108,13 @@ def mySortPrint(a,col,fileName):
 #Output: None
 
 	#Your code here:
-	pass
+	srtd = sorted(a, key = lambda x: x[col])
+	myfile = open(fileName, 'w+')
+	for student in srtd:
+		myfile.write(student['First'] + ",")
+		myfile.write(student['Last'] + ",")
+		myfile.write(student['Email'] + "\n")
+	myfile.close()
 
 
 
