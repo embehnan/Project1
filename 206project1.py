@@ -63,19 +63,18 @@ def findDay(a):
 # Input: list of dictionaries
 # Output: Return the day of month (1-31) that is the
 # most often seen in the DOB
-
-	birthdays={}
-	dates_lst=[]
-	for student in a:
-		dates_lst.append(student["DOB"].split("/"))
-	for date in dates_lst:
-		if date[1] not in birthdays:
-			birthdays[date[1]]=1
+	dates_dict = {}
+	for x in a:
+		date = x['DOB'].split('/')[1]
+		if date not in dates_dict.keys():
+			dates_dict[date] = 1
 		else:
-			birthdays[date[1]]+= 1
-	dates_lst_tuples=birthdays.items()
-	dates_lst_tuples=sorted(dates_lst_tuples, key=lambda x:x[1], reverse=True)
-	return int(dates_lst_tuples[0][0])
+			dates_dict[date] += 1
+	sorted_dates = sorted(dates_dict, key = dates_dict.get, reverse = True)
+	return int(sorted_dates[0])
+
+
+
 
 # Find the average age (rounded) of the Students
 def findAge(a):
@@ -84,16 +83,23 @@ def findAge(a):
 # most often seen in the DOB
 
 	#Your code here:
-	x=2017
+
 	lst_of_ages=[]
 	for dct in a:
-		date=dct['DOB']
-		sep=date.split('/')
-		year=sep[2]
-		age=x-int(year)
+		day=int(dct['DOB'].split('/')[0])
+		month=int(dct['DOB'].split('/')[1])
+		year=int(dct['DOB'].split('/')[2])
+		if month <=9:
+			age= 2017-year+1
+		if month > 9:
+			age= 2017-year
 		lst_of_ages.append(age)
-		average=sum(lst_of_ages)/len(lst_of_ages)
-		return int(average)
+	years= 0
+	for age in lst_of_ages:
+		years +=age
+	return int(years/len(lst_of_ages))
+
+
 
 #Similar to mySort, but instead of returning single
 #Student, all of the sorted data is saved to a csv file.
